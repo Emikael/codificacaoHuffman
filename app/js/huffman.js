@@ -29,7 +29,7 @@ let isMostrouMensagem = false;
  */
 function executarTudo() {
     if (document.getElementById("textoACodificar").value == '') {
-        alert("Digite uma palavra para ser codificada");
+        Materialize.toast('Digite uma palavra para ser codificada.', 4000);
         return;
     }
     while(!execucaoDoAlgoritmoFinalizada) {
@@ -43,14 +43,15 @@ function executarTudo() {
  */
 function executarDebug() {
 
+
+    if (document.getElementById("textoACodificar").value == '') {
+        Materialize.toast('Digite uma palavra para ser codificada.', 4000);
+        return;
+    }
+
     if (!isMostrouMensagem) {
         Materialize.toast('Modo debug, continue precionando o botão até o fim do processo.', 4000);
         isMostrouMensagem = true;
-    }
-
-    if (document.getElementById("textoACodificar").value == '') {
-        alert("Digite uma palavra para ser codificada");
-        return;
     }
 
     if (execucaoDoAlgoritmoFinalizada) {
