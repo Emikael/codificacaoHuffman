@@ -9,7 +9,6 @@ context.font = "16px Arial";
 
 let pontoX = 60;
 let pontoY = 20;
-let x;
 let indiceTexto = 0;
 
 let alfabeto = [];
@@ -20,9 +19,10 @@ let arvoreBinaria = [];
 let ciclos = 0;
 let finalizado = false;
 let desenhoDaArvoreFinalizado = false;
-let verificaPontoX=false;
-let verificaPontoY=false;
+let verificaPontoX = false;
+let verificaPontoY = false;
 let execucaoDoAlgoritmoFinalizada = false;
+let isMostrouMensagem = false;
 
 /**
  * Executa todos os processos do algoritmo.
@@ -43,12 +43,19 @@ function executarTudo() {
  */
 function executarDebug() {
 
+    if (!isMostrouMensagem) {
+        Materialize.toast('Modo debug, continue precionando o botão até o fim do processo.', 4000);
+        isMostrouMensagem = true;
+    }
+
     if (document.getElementById("textoACodificar").value == '') {
         alert("Digite uma palavra para ser codificada");
         return;
     }
+
     if (execucaoDoAlgoritmoFinalizada) {
         $(".botoesExecutar").addClass("disabled");
+        Materialize.toast('Processo finalizado.', 4000);
         return;
     }
 
@@ -67,7 +74,7 @@ function executar() {
         execucaoDoAlgoritmoFinalizada = true;
     }
 
-    if (finalizado == true && desenhoDaArvoreFinalizado == false) {
+    if (finalizado && !desenhoDaArvoreFinalizado) {
         desenhar();
         desenhoDaArvoreFinalizado = true;
     }
@@ -75,7 +82,7 @@ function executar() {
     /**
      * Cria a tabela inicial.
      */
-    if (finalizado == false) {
+    if (!finalizado) {
         if (ciclos == 0) {
             let texto = document.getElementById("textoACodificar").value; // string da textfield
             analisaFrequenciasDoAlfabeto(texto);
@@ -181,8 +188,8 @@ function codificacaoDeHufmann(){
 
     let tamanho = dicionarioDeHuffman.length;
     let dicionarioTemporario = [];
-    verificaPontoX=false;
-    verificaPontoY=false;
+    verificaPontoX = false;
+    verificaPontoY = false;
 
     /**
      * Garante que não chegou ao fim do dicionario.
@@ -370,10 +377,10 @@ function desenhaCelula(color, x, y, texto, bit) {
     context.strokeStyle = color;
     context.strokeRect(x, y, pontoX, pontoY);
     context.font = "14px Arial";
-    context.fillText(texto,x+(1/5*pontoX),y+(3/4*pontoY));
+    context.fillText(texto, x + (1/5 * pontoX), y + (3/4 * pontoY));
 
     context.font = "16px Arial";
-    context.fillText(bit,x-15,y+(3/4*pontoY));
+    context.fillText(bit, x - 15, y + (3/4 * pontoY));
 }
 
 /**
